@@ -24,6 +24,7 @@ void main() {
   group('Nft repository data source tests: ', () {
     final tNftListResponse =
         json.decode(fixture('crypto_search/crypto_search_valid_nft_list.json'));
+    // ignore: no_leading_underscores_for_local_identifiers
     List<NftModel> _getList() {
       List<NftModel> nftList = <NftModel>[];
       for (Map<String, dynamic> item in tNftListResponse) {
