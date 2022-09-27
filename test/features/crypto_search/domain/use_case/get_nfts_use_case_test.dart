@@ -19,13 +19,13 @@ void main() {
       //ARRANGE
       const String validAddress =
           '0xd8da6bf26964af9d7eed9e03e53415d37aa96045, which has lots of NFTs';
-      const tNft = Nft(
+      final Nft tNft = Nft(
           tokenId: 'tokenId',
           image: 'image',
           name: 'name',
           description: 'description',
           chain: 'chain',
-          creationDate: 'creationDate');
+          creationDate: DateTime.now());
       List<Nft> nftList = <Nft>[tNft];
 
       when(mockNftRepository.getNfts(validAddress))
