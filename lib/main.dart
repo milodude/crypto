@@ -3,8 +3,11 @@ import 'package:crypto_app/features/crypto_search/presentation/page/search_nft_p
 import 'package:crypto_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crypto_app/injection_container.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const AppState());
 }
 

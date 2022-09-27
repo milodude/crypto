@@ -22,7 +22,7 @@ Future<void> init() async {
       () => NftRepositoryImpl(nftRepositoryDataSource: sl()));
 
   //!Data Sources
-  sl.registerLazySingleton<NftDataSource>(
+  sl.registerLazySingleton<NftRepositoryDataSource>(
       () => NftDataSource(httpClient: sl(), urlProvider: sl()));
 
   //! Core
