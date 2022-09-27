@@ -7,10 +7,16 @@ import 'package:http/http.dart' as http;
 
 import 'package:crypto_app/features/crypto_search/data/model/nft_model.dart';
 
+/// NftRepositoryDataSource
+///
+/// Contract to be implemented by nftDataSource concrete class
 abstract class NftRepositoryDataSource {
   Future<List<NftModel>> getNftList(String address);
 }
 
+/// NftDataSource
+///
+/// Implementation of nft repository data source for getting nfts list
 class NftDataSource implements NftRepositoryDataSource {
   final http.Client httpClient;
   final UrlProvider urlProvider;

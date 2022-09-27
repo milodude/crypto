@@ -6,6 +6,10 @@ import 'package:crypto_app/features/crypto_search/data/data_source/nft_repositor
 import 'package:crypto_app/features/crypto_search/domain/entity/nft.dart';
 import 'package:crypto_app/features/crypto_search/domain/repository/nft_repository.dart';
 
+/// NftRepositoryImpl
+///
+/// Implementation for the nft repository at data layer. this will return
+/// Either a [List<Nft>] or a [ServerFailure]
 class NftRepositoryImpl implements NftRepository {
   final NftRepositoryDataSource nftRepositoryDataSource;
   NftRepositoryImpl({
