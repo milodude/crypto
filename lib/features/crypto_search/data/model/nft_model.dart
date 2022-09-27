@@ -17,7 +17,7 @@ class NftModel extends Nft {
       name: nft['event']['name'],
       description: nft['event']['description'],
       chain: nft['chain'],
-      creationDate: nft['created'] as DateTime,
+      creationDate: DateTime.parse(nft['created']),
     );
   }
 }
