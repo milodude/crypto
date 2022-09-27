@@ -44,7 +44,7 @@ class NftDataSource implements NftRepositoryDataSource {
       }
       return nftList;
     } else {
-      throw ServerFailure('Something went wrong while requesting photo list');
+      throw ServerFailure('Something went wrong while requesting NFTs list');
     }
   }
 }

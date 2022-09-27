@@ -22,9 +22,9 @@ class NftRepositoryImpl implements NftRepository {
       var result = await nftRepositoryDataSource.getNftList(address);
       return Right(result);
     } on ServerFailure catch (e) {
-      return Left(ServerFailure('Error while sending the request: $e'));
+      return Left(ServerFailure(e.message));
     } catch (e) {
-      return Left(ServerFailure('Server error'));
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

@@ -51,7 +51,18 @@ class _SearchNftPageState extends State<SearchNftPage> {
                 BlocListener<NftBloc, NftState>(
                   listener: (context, state) {
                     if (state is NftLoaded) {
-                      //TODO: Add flutter modular to redirect to second page
+                      if (state.nftList.length > 0) {
+                        //TODO: Add flutter modular to redirect to second page
+                        print('Sending to second page');
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.yellowAccent,
+                            content:
+                                Text('There address you typed in has no NFTs'),
+                          ),
+                        );
+                      }
                     }
 
                     if (state is NftError) {
