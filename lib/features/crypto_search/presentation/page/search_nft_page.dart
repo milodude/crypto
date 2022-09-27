@@ -1,8 +1,10 @@
 import 'package:crypto_app/core/constants/search_nft_page.dart/text_constants.dart';
+import 'package:crypto_app/features/crypto_search/presentation/bloc/nft/nft_bloc.dart';
 import 'package:crypto_app/features/crypto_search/presentation/widgets/address_input.dart';
 import 'package:crypto_app/features/crypto_search/presentation/widgets/landing_image.dart';
 import 'package:crypto_app/features/crypto_search/presentation/widgets/proceed_with_search_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// SearchNftPage
 ///
@@ -16,6 +18,12 @@ class SearchNftPage extends StatefulWidget {
 
 class _SearchNftPageState extends State<SearchNftPage> {
   final addressInputController = TextEditingController();
+
+  void _getNfts() {
+    context
+        .read<NftBloc>()
+        .add(GetNftEvent(address: addressInputController.text));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,27 @@ class _SearchNftPageState extends State<SearchNftPage> {
                 AddressInput(addressInputController: addressInputController),
                 //!button
                 const SizedBox(height: 30),
-                const ProceedWithSearchButton()
+                BlocListener<NftBloc, NftState>(
+                  listener: (context, state) {
+                    if (state is NftLoaded) {
+                      //TODO: Add flutter modular to redirect to second page
+                    }
+
+                    if (state is NftError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.redAccent,
+                          content: Text(state.errorMessage.toString()),
+                        ),
+                      );
+                    }
+                  },
+                  child: BlocBuilder<NftBloc, NftState>(
+                    builder: (context, state) {
+                      return ProceedWithSearchButton(getNfts: _getNfts);
+                    },
+                  ),
+                )
               ],
             ),
           ),
