@@ -1,14 +1,15 @@
+import 'package:crypto_app/core/navigation/app_module.dart';
 import 'package:crypto_app/features/crypto_search/presentation/bloc/nft/nft_bloc.dart';
-import 'package:crypto_app/features/crypto_search/presentation/page/search_nft_page.dart';
 import 'package:crypto_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_app/injection_container.dart' as di;
+import 'package:flutter_modular/flutter_modular.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(const AppState());
+  runApp(ModularApp(module: AppModule(), child: const AppState()));
 }
 
 class AppState extends StatelessWidget {
@@ -30,12 +31,14 @@ class CryptoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Crypto App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SearchNftPage(),
+      debugShowCheckedModeBanner: false,
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
     );
   }
 }
