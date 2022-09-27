@@ -11,9 +11,7 @@ part 'nft_state.dart';
 class NftBloc extends Bloc<NftEvent, NftState> {
   final GetNftUseCase getNftUseCase;
   NftBloc({required this.getNftUseCase}) : super(NftInitial()) {
-    on<NftEvent>((event, emit) {
-      on<GetNftEvent>(_LoadNftList);
-    });
+    on<GetNftEvent>(_LoadNftList);
   }
 
   // ignore: non_constant_identifier_names
