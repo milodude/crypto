@@ -7,7 +7,8 @@ class Nft extends Equatable {
   final String name;
   final String description;
   final String chain;
-  final String creationDate;
+  final DateTime creationDate;
+
   const Nft({
     required this.tokenId,
     required this.image,
