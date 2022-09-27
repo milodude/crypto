@@ -1,5 +1,5 @@
-import 'package:crypto/core/error/error.dart';
-import 'package:crypto/features/crypto_search/domain/entity/nft.dart';
+import 'package:crypto_app/core/error/error.dart';
+import 'package:crypto_app/features/crypto_search/domain/entity/nft.dart';
 import 'package:dartz/dartz.dart';
 
 /// NftRepository

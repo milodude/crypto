@@ -1,4 +1,4 @@
-import 'package:crypto/core/error/error.dart';
+import 'package:crypto_app/core/error/error.dart';
 import 'package:dartz/dartz.dart';
 
 /// UseCase
