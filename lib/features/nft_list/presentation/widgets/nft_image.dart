@@ -19,11 +19,9 @@ class NftImage extends StatelessWidget {
           child: InkWell(
             splashColor: Colors.green,
             onTap: () {},
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.network(imageUrl),
-              ],
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.fill,
             ),
           ),
         ),
