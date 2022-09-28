@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class NftListBackArrow extends StatelessWidget {
-  const NftListBackArrow({
+class PageBackArrow extends StatelessWidget {
+  const PageBackArrow({
     Key? key,
   }) : super(key: key);
 
