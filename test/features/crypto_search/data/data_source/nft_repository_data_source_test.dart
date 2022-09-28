@@ -28,7 +28,7 @@ void main() {
     List<NftModel> _getList() {
       List<NftModel> nftList = <NftModel>[];
       for (Map<String, dynamic> item in tNftListResponse) {
-        var photo = NftModel.fromJson(item);
+        var photo = NftModel.fromJson(item, 0);
         nftList.add(photo);
       }
       return nftList;

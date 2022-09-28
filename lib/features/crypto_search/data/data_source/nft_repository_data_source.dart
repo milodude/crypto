@@ -39,7 +39,7 @@ class NftDataSource implements NftRepositoryDataSource {
       var decodedJson = json.decode(response.body);
       List<NftModel> nftList = <NftModel>[];
       for (Map<String, dynamic> item in decodedJson) {
-        var nft = NftModel.fromJson(item);
+        var nft = NftModel.fromJson(item, 0);
         nftList.add(nft);
       }
       return nftList;

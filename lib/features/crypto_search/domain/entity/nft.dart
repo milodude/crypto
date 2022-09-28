@@ -8,6 +8,7 @@ class Nft extends Equatable {
   final String description;
   final String chain;
   final DateTime creationDate;
+  final int id;
 
   const Nft({
     required this.tokenId,
@@ -16,6 +17,7 @@ class Nft extends Equatable {
     required this.description,
     required this.chain,
     required this.creationDate,
+    required this.id,
   });
 
   @override

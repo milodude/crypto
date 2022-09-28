@@ -23,7 +23,8 @@ void main() {
         name: 'name',
         description: 'description',
         chain: 'chain',
-        creationDate: DateTime.now()),
+        creationDate: DateTime.now(),
+        id: 0),
   ];
 
   const String validAddress = 'ValidAddress';
