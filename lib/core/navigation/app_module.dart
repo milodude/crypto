@@ -1,5 +1,7 @@
 import 'package:crypto_app/core/constants/navigation.dart';
+import 'package:crypto_app/features/crypto_search/domain/entity/nft.dart';
 import 'package:crypto_app/features/crypto_search/presentation/page/search_nft_page.dart';
+import 'package:crypto_app/features/nft_details/presentation/page/nft_details_page.dart';
 import 'package:crypto_app/features/nft_list/presentation/page/nft_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,6 +27,17 @@ class AppModule extends Module {
             dynamic args,
           ) =>
               const NftListPage(),
+        ),
+        ChildRoute<dynamic>(
+          nftDetailsPage,
+          transition: TransitionType.leftToRight,
+          child: (
+            BuildContext context,
+            dynamic args,
+          ) =>
+              NftDetailsPage(
+            nft: args.data as Nft,
+          ),
         ),
       ];
 }
