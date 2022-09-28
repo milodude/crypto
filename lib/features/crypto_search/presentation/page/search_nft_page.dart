@@ -51,6 +51,9 @@ class _SearchNftPageState extends State<SearchNftPage> {
                 const SizedBox(height: 30),
                 BlocListener<NftBloc, NftState>(
                   listener: (context, state) {
+                    if (state is NftLoaded) {
+                      Navigator.pushNamed(context, nftListPage);
+                    }
                     if (state is NftError) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -71,8 +74,6 @@ class _SearchNftPageState extends State<SearchNftPage> {
                             CircularProgressIndicator(),
                           ],
                         );
-                      } else if (state is NftLoaded) {
-                        Modular.to.navigate(nftListPage);
                       }
                       return ProceedWithSearchButton(getNfts: _getNfts);
                     },
