@@ -1,3 +1,4 @@
+import 'package:crypto_app/core/constants/navigation.dart';
 import 'package:crypto_app/core/constants/search_nft_page.dart/text_constants.dart';
 import 'package:crypto_app/features/crypto_search/presentation/bloc/nft/nft_bloc.dart';
 import 'package:crypto_app/features/crypto_search/presentation/widgets/address_input.dart';
@@ -5,6 +6,7 @@ import 'package:crypto_app/features/crypto_search/presentation/widgets/landing_i
 import 'package:crypto_app/features/crypto_search/presentation/widgets/proceed_with_search_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 /// SearchNftPage
 ///
@@ -20,8 +22,7 @@ class _SearchNftPageState extends State<SearchNftPage> {
   final addressInputController = TextEditingController();
 
   void _getNfts() {
-    context
-        .read<NftBloc>()
+    BlocProvider.of<NftBloc>(context)
         .add(GetNftEvent(address: addressInputController.text));
   }
 
@@ -50,21 +51,6 @@ class _SearchNftPageState extends State<SearchNftPage> {
                 const SizedBox(height: 30),
                 BlocListener<NftBloc, NftState>(
                   listener: (context, state) {
-                    if (state is NftLoaded) {
-                      if (state.nftList.length > 0) {
-                        //TODO: Add flutter modular to redirect to second page
-                        print('Sending to second page');
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.yellowAccent,
-                            content:
-                                Text('There address you typed in has no NFTs'),
-                          ),
-                        );
-                      }
-                    }
-
                     if (state is NftError) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -76,6 +62,18 @@ class _SearchNftPageState extends State<SearchNftPage> {
                   },
                   child: BlocBuilder<NftBloc, NftState>(
                     builder: (context, state) {
+                      if (state is NftInitial) {
+                        return ProceedWithSearchButton(getNfts: _getNfts);
+                      } else if (state is NftLoading) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            CircularProgressIndicator(),
+                          ],
+                        );
+                      } else if (state is NftLoaded) {
+                        Modular.to.navigate(nftListPage);
+                      }
                       return ProceedWithSearchButton(getNfts: _getNfts);
                     },
                   ),
