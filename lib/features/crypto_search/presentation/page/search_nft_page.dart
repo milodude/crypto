@@ -6,7 +6,6 @@ import 'package:crypto_app/features/crypto_search/presentation/widgets/landing_i
 import 'package:crypto_app/features/crypto_search/presentation/widgets/proceed_with_search_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 /// SearchNftPage
 ///
