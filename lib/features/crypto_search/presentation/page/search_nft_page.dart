@@ -19,8 +19,10 @@ class SearchNftPage extends StatefulWidget {
 
 class _SearchNftPageState extends State<SearchNftPage> {
   final addressInputController = TextEditingController();
+  final GlobalKey<FormState> _modalFormKey = GlobalKey<FormState>();
 
   void _getNfts() {
+    if (!_modalFormKey.currentState!.validate()) return;
     BlocProvider.of<NftBloc>(context)
         .add(GetNftEvent(address: addressInputController.text));
   }
@@ -34,51 +36,54 @@ class _SearchNftPageState extends State<SearchNftPage> {
         child: Padding(
           padding: EdgeInsets.only(top: screenHeight - screenHeight * 0.90),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //!image
-                LandingImage(screenHeight: screenHeight),
-                //!small descriptive text
-                Text(
-                  smallDescriptiveText,
-                  style: TextStyle(fontSize: 16, color: Colors.purple[900]),
-                ),
-                const SizedBox(height: 30),
-                //!input
-                AddressInput(addressInputController: addressInputController),
-                //!button
-                const SizedBox(height: 30),
-                BlocListener<NftBloc, NftState>(
-                  listener: (context, state) {
-                    if (state is NftLoaded) {
-                      Navigator.pushNamed(context, nftListPage);
-                    }
-                    if (state is NftError) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.redAccent,
-                          content: Text(state.errorMessage.toString()),
-                        ),
-                      );
-                    }
-                  },
-                  child: BlocBuilder<NftBloc, NftState>(
-                    builder: (context, state) {
-                      if (state is NftInitial) {
-                        return ProceedWithSearchButton(getNfts: _getNfts);
-                      } else if (state is NftLoading) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            CircularProgressIndicator(),
-                          ],
+            child: Form(
+              key: _modalFormKey,
+              child: Column(
+                children: [
+                  //!image
+                  LandingImage(screenHeight: screenHeight),
+                  //!small descriptive text
+                  Text(
+                    smallDescriptiveText,
+                    style: TextStyle(fontSize: 16, color: Colors.purple[900]),
+                  ),
+                  const SizedBox(height: 30),
+                  //!input
+                  AddressInput(addressInputController: addressInputController),
+                  //!button
+                  const SizedBox(height: 30),
+                  BlocListener<NftBloc, NftState>(
+                    listener: (context, state) {
+                      if (state is NftLoaded) {
+                        Navigator.pushNamed(context, nftListPage);
+                      }
+                      if (state is NftError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.redAccent,
+                            content: Text(state.errorMessage.toString()),
+                          ),
                         );
                       }
-                      return ProceedWithSearchButton(getNfts: _getNfts);
                     },
-                  ),
-                )
-              ],
+                    child: BlocBuilder<NftBloc, NftState>(
+                      builder: (context, state) {
+                        if (state is NftInitial) {
+                          return ProceedWithSearchButton(getNfts: _getNfts);
+                        } else if (state is NftLoading) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[
+                              CircularProgressIndicator(),
+                            ],
+                          );
+                        }
+                        return ProceedWithSearchButton(getNfts: _getNfts);
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

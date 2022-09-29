@@ -16,8 +16,18 @@ class AddressInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 50.0, right: 50),
-      child: TextField(
+      child: TextFormField(
         controller: addressInputController,
+        validator: (String? address) {
+          if (address == null || address.isEmpty) {
+            return 'Address must not be null';
+          }
+
+          if (address.length != 42) {
+            return 'Address length is not correct. Please check it.';
+          }
+          return null;
+        },
         decoration: const InputDecoration(
           labelStyle: TextStyle(color: Colors.blueAccent),
           labelText: addressInputLabelText,
